@@ -1,0 +1,11 @@
+env:
+  - name: MYSQL_HOST
+    value: "mysql"
+  - name: POSTGRES_HOST
+    value: "postgres"
+  - name: DYNAMODB_ENDPOINT
+    value: "http://dynamodb-local:8000"
+  - name: REDIS_HOST
+    value: "redis"
+  - name: RABBITMQ_HOST
+    value: "rabbitmq"
