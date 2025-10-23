@@ -58,13 +58,13 @@ git clone https://github.com/BIT-29/project-bedrock
 cd terraform
 ```
 2. Initialize Terraform
-terraform init
+`terraform init`
 
 3. plan Infrastructure
-terraform plan -out=tfplan
+`terraform plan -out=tfplan`
 
 4. Apply infrastructure
-terraform apply tfplan
+`terraform apply tfplan`
 
 ---
 
@@ -136,3 +136,4 @@ Planned read-only IAM user:
 
 ```bash
 aws eks list-clusters --region us-east-1
+```
