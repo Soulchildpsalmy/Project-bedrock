@@ -1,0 +1,13 @@
+namespace: retail
+
+resources:
+  - mysql/deployment.yaml
+  - mysql/service.yaml
+  - postgres/deployment.yaml
+  - postgres/service.yaml
+  - redis/deployment.yaml
+  - redis/service.yaml
+  - rabbitmq/deployment.yaml
+  - rabbitmq/service.yaml
+  - dynamodb/deployment.yaml
+  - dynamodb/service.yaml
