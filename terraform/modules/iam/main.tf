@@ -1,7 +1,3 @@
-variable "readonly_username" {
-  type        = string
-  description = "Name of the read-only IAM user"
-}
 
 resource "aws_iam_user" "dev_readonly" {
   name = var.readonly_username
