@@ -68,6 +68,65 @@ cd terraform
 
 ---
 
+## Configure Kubeconfig locally
+After apply, configure your local kubeconfig:
+```bash aws eks --region us-east-1 update-kubeconfig --name bedrock-cluster```
+````kubectl get nodes```
+If nodes show `Ready`, good
+
+## Restoring EKS Cluster Access for the IAM User That Created It
+
+If you created your EKS cluster using **Terraform** (or the AWS CLI) with your **IAM user**, but later see this error:
+
+```bash
+error: You must be logged in to the server (the server has asked for the client to provide credentials)
+```
+It means your IAM user has AWS permissions but is not mapped into the cluster's kubernetes RBAC.
+EKS now uses Access Entries (instead of the legacy `aws-auth` ConfigMap) to manage this.
+Follow the steps below to restore full cluster admin access.
+### Step 1 - Verify your AWS Identity
+Make sure your AWS CLI is currently using the IAM user that created the cluster:
+```bash
+aws sts get-caller-identity
+```
+### Step 2 - Create an Access Entry for Your IAM User
+This tells EKS that your IAM user should be recognized as z valid cluster identity:
+```bash
+aws eks create-access-entry \
+  --cluster-name bedrock-cluster \
+  --principal-arn arn:aws:iam::<accountID>:user/<username> \
+  --type STANDARD \
+  --region us-east-1
+```
+### Step 3 - Associate an Admin Access Policy
+Grant your IAM user cluster admin priveleges (equivalent to `system:masters`):
+```bash
+aws eks associate-access-policy \
+  --cluster-name bedrock-cluster \
+  --principal-arn arn:aws:iam::<accountID>:user/<user-name> \
+  --policy-arn arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy \
+  --region us-east-1 \
+  --access-scope type=cluster
+```
+### Step 4 - Verify Access Policy Association
+Check that your IAM usr has the admin policy linked:
+```bash
+aws eks list-associated-access-policies \
+  --cluster-name bedrock-cluster \
+  --principal-arn arn:aws:iam::<accountID>:user/<username> \
+  --region us-east-1
+```
+### Step 5 - Update Your Kubeconfig
+Rebuild your kubeconfig file so kubectl uses the latest credentials and cluster info:
+```bash
+aws eks update-kubeconfig --region us-east-1 --name bedrock-cluster --alias bedrock
+```
+### Step 6 - Test Cluster Access
+Confirm you can now interact with your cluster:
+```bash
+kubectl get svc
+```
+
 ## CI/CD Overview
 
 The GitHub Actions workflow automates Terraform deployment:
