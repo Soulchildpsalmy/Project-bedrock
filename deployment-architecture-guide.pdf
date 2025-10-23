@@ -1,0 +1,51 @@
+
+### **Project Bedrock - Architecture Overview**
+
+**1. Infrastructure Overview**
+
+- **VPC**  
+  - CIDR: `10.0.0.0/16`  
+  - 2 Availability Zones: `us-east-1a`, `us-east-1b`  
+  - Public Subnets: `10.0.1.0/24`, `10.0.2.0/24`  
+  - Private Subnets: `10.0.11.0/24`, `10.0.12.0/24`  
+  - NAT Gateway for outbound internet from private subnets  
+  - DNS support enabled  
+
+- **EKS Cluster**  
+  - Cluster Name: `bedrock-cluster`  
+  - Kubernetes Version: `1.29`  
+  - Managed Node Group: `t3.medium` instances  
+  - 1–3 nodes per cluster  
+  - Private subnet deployment  
+
+- **IAM Users**  
+  - Read-only developer user (`dev-readonly`)  
+  - Least-privilege policy for monitoring and viewing logs  
+
+- **S3 Backend & DynamoDB**  
+  - S3 Bucket: `project-bedrock-tfstate-new` (Terraform state storage)  
+  - DynamoDB Table: `project-bedrock-tf-lock` (state lock)
+
+---
+
+**2. Application Deployment**
+
+- **Retail Store Application** deployed on EKS  
+- Microservices architecture:  
+  - Service A, Service B, Service C (example placeholders)  
+- In-cluster dependencies:  
+  - MySQL  
+  - Redis  
+  - RabbitMQ  
+
+- **Kubernetes manifests:** Located in `k8s/` folder
+
+---
+
+**3. Developer Access Instructions**
+
+1. AWS Console / CLI login using `dev-readonly` user credentials  
+2. List EKS clusters:
+
+```bash
+aws eks list-clusters --region us-east-1
