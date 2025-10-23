@@ -136,4 +136,8 @@ Planned read-only IAM user:
 
 ```bash
 aws eks list-clusters --region us-east-1
+<<<<<<< HEAD
 ```
+=======
+```
+>>>>>>> 2adc443658187b919b528c5c5fc4d5a03369bcca
