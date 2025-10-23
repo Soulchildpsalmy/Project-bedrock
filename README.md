@@ -58,30 +58,30 @@ git clone https://github.com/BIT-29/project-bedrock
 cd terraform
 ```
 2. Initialize Terraform
-terraform init
+`terraform init`
 
 3. plan Infrastructure
-terraform plan -out=tfplan
+`terraform plan -out=tfplan`
 
 4. Apply infrastructure
-terraform apply tfplan
+`terraform apply tfplan`
 
 ---
 
 ## CI/CD Overview
 
 The GitHub Actions workflow automates Terraform deployment:
-**Feature branches:** Trigger terraform plan
-**Main branch:** Trigger terraform apply
-Uses **AWS OIDC** for secure role assumption
-AWS credentials are managed via repository secrets (AWS_OIDC_ROLE_ARN)
+-**Feature branches:** Trigger terraform plan
+-**Main branch:** Trigger terraform apply
+-Uses **AWS OIDC** for secure role assumption
+-AWS credentials are managed via repository secrets (AWS_OIDC_ROLE_ARN)
 
 ## Developer Access
 
 Planned read-only IAM user:
-**Username:** dev-readonly
-**Permissions:** Describe EKS cluster, list clusters, view CloudWatch logs, get metrics
-**Access Instuctions:** Use AWS CLI or console to view cluster resources without modifying them
+**-Username:** dev-readonly
+**-Permissions:** Describe EKS cluster, list clusters, view CloudWatch logs, get metrics
+**-Access Instuctions:** Use AWS CLI or console to view cluster resources without modifying them
 
 
 ---
@@ -136,3 +136,4 @@ Planned read-only IAM user:
 
 ```bash
 aws eks list-clusters --region us-east-1
+```
