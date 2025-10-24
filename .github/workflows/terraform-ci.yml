@@ -23,7 +23,7 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          role-to-assume: ${{ secrets.AWS_OIDC_ROLE_ARN }}
+          role-to-assume: arn:aws:iam::101134489152:role/eksctl-bedrock-cluster-new-addon-iamserviceac-Role1-A1yPx480qkH2
           aws-region: us-east-1
           audience: sts.amazonaws.com
 
@@ -31,7 +31,7 @@ jobs:
       - name: Debug AWS_OIDC_ROLE_ARN
         run: echo "Role ARN is $AWS_OIDC_ROLE_ARN"
         env:
-          AWS_OIDC_ROLE_ARN: ${{ secrets.AWS_OIDC_ROLE_ARN }}
+          AWS_OIDC_ROLE_ARN: arn:aws:iam::101134489152:role/eksctl-bedrock-cluster-new-addon-iamserviceac-Role1-A1yPx480qkH2
 
       # 4. Debug: Verify AWS identity
       - name: Test AWS Identity
