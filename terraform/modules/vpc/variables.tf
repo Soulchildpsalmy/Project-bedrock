@@ -2,7 +2,7 @@
 variable "name" {
   description = "Name of the VPC"
   type        = string
-  default     = "bedrock-vpc"
+  default     = "bedrock-vpc-new"
 }
 
 variable "cidr" {

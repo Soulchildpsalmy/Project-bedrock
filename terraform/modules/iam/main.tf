@@ -1,6 +1,6 @@
 
 resource "aws_iam_user" "dev_readonly" {
-  name = var.readonly_username
+  name = var.dev_readonly_username
 }
 
 resource "aws_iam_user_policy" "dev_readonly_policy" {

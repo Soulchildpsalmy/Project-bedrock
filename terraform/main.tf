@@ -57,5 +57,6 @@ module "eks" {
 # ----------------------------
 module "iam" {
   source            = "./modules/iam"
-  readonly_username = "bedrock-dev-readonly"
+  dev_readonly_username = "bedrock-dev-readonly"
 }
+
