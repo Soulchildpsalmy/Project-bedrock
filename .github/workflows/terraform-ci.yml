@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - 'feature/**'
   pull_request:
     branches:
       - main
@@ -24,39 +23,44 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          role-to-assume: ${{ secrets.AWS_OIDC_ROLE_ARN }} 
+          role-to-assume: ${{ secrets.AWS_OIDC_ROLE_ARN }}
           aws-region: us-east-1
+          audience: sts.amazonaws.com
 
+      # 3. Debug: Check secret value (for testing only; remove in production)
       - name: Debug AWS_OIDC_ROLE_ARN
         run: echo "Role ARN is $AWS_OIDC_ROLE_ARN"
         env:
-            AWS_OIDC_ROLE_ARN: ${{ secrets.AWS_OIDC_ROLE_ARN }}
+          AWS_OIDC_ROLE_ARN: ${{ secrets.AWS_OIDC_ROLE_ARN }}
 
+      # 4. Debug: Verify AWS identity
+      - name: Test AWS Identity
+        run: aws sts get-caller-identity
 
-      # 3. Setup Terraform CLI
+      # 5. Setup Terraform CLI
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: 1.6.0
 
-      # 4. Initialize Terraform
+      # 6. Initialize Terraform
       - name: Terraform Init
         run: terraform init -reconfigure
 
-      # 5. Terraform Format Check
+      # 7. Terraform Format Check
       - name: Terraform Format
         run: terraform fmt -check
 
-      # 6. Terraform Validate
+      # 8. Terraform Validate
       - name: Terraform Validate
         run: terraform validate
 
-      # 7. Terraform Plan (for all branches)
+      # 9. Terraform Plan (for all branches)
       - name: Terraform Plan
         id: plan
         run: terraform plan -out=tfplan
 
-      # 8. Conditional Apply (only on main)
+      # 10. Conditional Apply (only on main)
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main'
         run: terraform apply -auto-approve tfplan
