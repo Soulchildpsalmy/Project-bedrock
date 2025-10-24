@@ -24,7 +24,7 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          role-to-assume: arn:aws:iam::070589355629:role/eksctl-bedrock-cluster-addon-iamserviceaccoun-Role1-NY04GT9VvaOi
+          role-to-assume: arn:aws:iam::101134489152:role/eksctl-bedrock-cluster-new-addon-iamserviceac-Role1-A1yPx480qkH2
           aws-region: us-east-1
 
       # 3. Setup Terraform CLI
