@@ -21,7 +21,7 @@ jobs:
 
       # 2. Configure AWS credentials via OIDC
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v2
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::101134489152:role/eksctl-bedrock-cluster-new-addon-iamserviceac-Role1-A1yPx480qkH2
           aws-region: us-east-1
