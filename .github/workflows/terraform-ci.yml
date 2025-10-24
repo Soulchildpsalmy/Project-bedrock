@@ -25,7 +25,7 @@ jobs:
         with:
           role-to-assume: arn:aws:iam::101134489152:role/eksctl-bedrock-cluster-new-addon-iamserviceac-Role1-A1yPx480qkH2
           aws-region: us-east-1
-          audience: sts.amazonaws.com
+          
 
       # 3. Debug: Check secret value (for testing only; remove in production)
       - name: Debug AWS_OIDC_ROLE_ARN
