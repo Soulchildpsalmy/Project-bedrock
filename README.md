@@ -54,7 +54,7 @@ project-bedrock
 
 1. Clone the repository
 ```bash
-git clone https://github.com/BIT-29/project-bedrock
+git clone https://github.com/Soulchildpsalmy/Project-bedrock
 cd terraform
 ```
 2. Initialize Terraform
