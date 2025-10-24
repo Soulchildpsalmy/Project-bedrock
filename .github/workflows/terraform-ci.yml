@@ -27,6 +27,12 @@ jobs:
           role-to-assume: ${{ secrets.AWS_OIDC_ROLE_ARN }} 
           aws-region: us-east-1
 
+      - name: Debug AWS_OIDC_ROLE_ARN
+        run: echo "Role ARN is $AWS_OIDC_ROLE_ARN"
+        env:
+            AWS_OIDC_ROLE_ARN: ${{ secrets.AWS_OIDC_ROLE_ARN }}
+
+
       # 3. Setup Terraform CLI
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
