@@ -12,10 +12,9 @@ jobs:
   terraform:
     name: Terraform Plan & Apply
     runs-on: ubuntu-latest
-    environment: production
     permissions:
-      id-token: write   # This is required for OIDC
-      contents: read    # This is usually needed for code checkout
+      id-token: write  
+      contents: read   
 
     steps:
       # 1. Checkout code
