@@ -56,7 +56,7 @@ module "eks" {
 # IAM Module (Local)
 # ----------------------------
 module "iam" {
-  source            = "./modules/iam"
+  source                = "./modules/iam"
   dev_readonly_username = "bedrock-dev-readonly"
 }
 
