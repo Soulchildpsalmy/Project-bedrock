@@ -19,7 +19,7 @@ jobs:
     steps:
       # 1. Checkout code
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # 2. Configure AWS credentials via OIDC
       - name: Configure AWS Credentials
@@ -48,21 +48,26 @@ jobs:
       # 6. Initialize Terraform
       - name: Terraform Init
         run: terraform init -reconfigure
+        working-directory: ./terraform
 
       # 7. Terraform Format Check
       - name: Terraform Format
         run: terraform fmt -check
+        working-directory: ./terraform
 
       # 8. Terraform Validate
       - name: Terraform Validate
         run: terraform validate
+        working-directory: ./terraform
 
       # 9. Terraform Plan (for all branches)
       - name: Terraform Plan
         id: plan
         run: terraform plan -out=tfplan
+        working-directory: ./terraform
 
       # 10. Conditional Apply (only on main)
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main'
         run: terraform apply -auto-approve tfplan
+        working-directory: ./terraform
