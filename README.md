@@ -5,8 +5,29 @@
 
 ---
 
-## Folder Structure
+## 📌 Architecture Overview
+**Core AWS Components:**
+  -  VPC: Custom VPC with public and private subnets in multiple AZs.
+  -  EKS Cluster: Deployed via Terraform using eksctl configuration.
+  -  ALB Ingress Controller: Manages load balancing between pods and internet users.
+  -  IAM OIDC Integration: Enables GitHub Actions to assume AWS IAM role securely.
+  -  CI/CD: GitHub Actions automates Terraform plan/apply using OIDC federation.
+  -  S3 & DynamoDB: Used for Terraform remote backend and state locking.
 
+---
+
+## 🚀 Prerequisites
+
+Before deployment, ensure you have:
+- An **AWS account** with administrative access
+- **AWS CLI** installed and configured
+- **Terraform** installed
+- **kubectl** installed for cluster management
+- **GitHub Actions** enabled if you want to use CI/CD
+---
+
+## Folder Structure
+```bash
 project-bedrock
 ├── README.md
 ├── deployment-architecture-guide.pdf
@@ -47,6 +68,13 @@ project-bedrock
     ├── terraform.tfvars
     ├── tfplan
     └── variables.tf
+```
+---
+
+## How to Access the Running Application
+Frontend (UI):
+Visit:
+http://a71ebb9eb8bdc492abdcc609cf4cf90b-1478608490.us-east-1.elb.amazonaws.com/catalog?page=1&tag=food
 
 ---
 
@@ -128,6 +156,7 @@ kubectl get svc
 ```
 
 ## CI/CD Overview
+The repository includes GitHub Actions workflows.
 
 The GitHub Actions workflow automates Terraform deployment:
 -**Feature branches:** Trigger terraform plan
@@ -145,7 +174,7 @@ Planned read-only IAM user:
 
 ---
 
-## Deployment Architecture Guide
+## 👨‍💻  Deployment Architecture Guide
 
 **1. Infrastructure Overview**
 
@@ -195,3 +224,14 @@ Planned read-only IAM user:
 
 ```bash
 aws eks list-clusters --region us-east-1
+```
+
+##  ✅ Summary
+
+Project Bedrock provisions a secure, scalable, and production-ready EKS environment for InnovateMart's Retail Store Application.
+
+**It ensures:**
+- Automated deployments with Terraform
+- Secure database connectivity via Kubernetes secrets
+- Restricted developer access for observability
+- CI/CD integration for continuous delivery
